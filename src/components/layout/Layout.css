@@ -5,9 +5,9 @@
 	--primaryYellow: #f7b733;
 	--primaryWhite: #fff;
 	--primaryGray: #dfdce3;
-	--primaryBlack: #222;
+	--primaryBlack: #233038;
 	--primaryBlue: #33658a;
-	--primaryTeal: #3fd0d4;
+	--primaryTeal: #00cfff;
 	--mainTransition: all 0.3s linear;
 	--mainSpacing: 4px;
 	--lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
@@ -42,7 +42,7 @@ p {
 }
 .defaultHeroImage {
 	min-height: calc(100vh - 62px);
-	background: linear-gradient(rgba(63, 208, 212, 0.6), rgba(0, 0, 0, 0.7)),
+	background: linear-gradient(rgba(63, 208, 212, 0.7), rgba(0, 0, 0, 0.5)),
 		url('../../images/kids-reading-hero-image.jpg') center/cover no-repeat;
 	display: flex;
 	justify-content: center;
@@ -65,7 +65,7 @@ p {
 	color: var(--primaryBlue);
 }
 .btn-primary {
-	background: var(--primaryBlue);
+	background: var(--primaryTeal);
 	color: var(--primaryWhite);
 	border: 2px solid var(--primaryBlue);
 }

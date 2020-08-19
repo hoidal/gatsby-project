@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import Layout from '../components/layout/Layout'
 import HeroImage from '../components/hero-image/HeroImage'
 import Banner from '../components/banner/Banner'
+import About from '../components/Home/About'
 export default function Home() {
 	return (
 		<Layout>
@@ -13,6 +14,7 @@ export default function Home() {
 					</Link>
 				</Banner>
 			</HeroImage>
+			<About />
 		</Layout>
 	)
 }

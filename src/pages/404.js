@@ -1,8 +1,8 @@
 import React from 'react'
-import Layout from '../../components/layout/Layout'
-import styles from './404.module.css'
+import Layout from '../components/layout/Layout'
+import styles from '../page-styles/Error.module.css'
 import { Link } from 'gatsby'
-import Banner from '../../components/banner/Banner'
+import Banner from '../components/banner/Banner'
 
 export default function Error() {
 	return (

@@ -52,21 +52,26 @@
 @media screen and (min-width: 992px) {
 	.take-action-button {
 		margin: 10px;
-		background: var(--primaryRed);
-		transition: var(--mainTransition);
-		border-radius: 10px;
-		font-weight: bold;
+		text-transform: uppercase;
+		text-decoration: none;
 		letter-spacing: var(--mainSpacing);
+		color: var(--primaryWhite);
+		font-weight: bold;
+		transition: var(--mainTransition);
+		cursor: pointer;
+		background: var(--primaryRed);
+		border: 2px solid var(--primaryWhite);
 	}
 	.take-action-button a {
-		color: white;
+		color: var(--primaryWhite);
 		padding: 10px;
 	}
 	.take-action-button:hover {
-		transform: scale(1.1);
+		background: var(--primaryWhite);
+		border: 2px solid var(--primaryRed);
 	}
 	.take-action-button a:hover {
-		color: white;
+		color: var(--primaryRed);
 	}
 	.menu-btn {
 		display: none;
