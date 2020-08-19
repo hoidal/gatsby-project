@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.banner {
+	text-align: center;
+	letter-spacing: var(--mainSpacing);
+	color: var(--primaryWhite);
+}
+.banner .main-text {
+	font-size: 3.5rem;
+	text-transform: uppercase;
+	margin-bottom: 2rem;
+	padding: 0 1rem;
+	letter-spacing: 6px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+}
+.banner p {
+	width: 85%;
+	margin: 0 auto;
+	margin-bottom: 2rem;
+}
+@media screen and (min-width: 768px) {
+	.banner h1 {
+		font-size: 3.5rem;
+	}
+	.banner p {
+		width: 70%;
+	}
+}

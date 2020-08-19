@@ -7,7 +7,7 @@
 	--primaryGray: #dfdce3;
 	--primaryBlack: #222;
 	--primaryBlue: #33658a;
-	--primaryTeal: #4abdac;
+	--primaryTeal: #3fd0d4;
 	--mainTransition: all 0.3s linear;
 	--mainSpacing: 4px;
 	--lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
@@ -40,14 +40,14 @@ h6 {
 p {
 	margin-bottom: 1.25rem;
 }
-/* .defaultHero {
+.defaultHeroImage {
 	min-height: calc(100vh - 62px);
-	background: linear-gradient(rgba(63, 208, 212, 0.7), rgba(0, 0, 0, 0.7)),
-		url('../../images/defaultBcg.jpeg') center/cover no-repeat;
+	background: linear-gradient(rgba(63, 208, 212, 0.6), rgba(0, 0, 0, 0.7)),
+		url('../../images/kids-reading-hero-image.jpg') center/cover no-repeat;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-} */
+}
 .btn-white,
 .btn-primary {
 	text-transform: uppercase;
@@ -73,6 +73,8 @@ p {
 	background: transparent;
 	color: var(--primaryBlue);
 }
-/* .gatsby-image-wrapper {
-  max-height: 600px;
-} */
+main {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
