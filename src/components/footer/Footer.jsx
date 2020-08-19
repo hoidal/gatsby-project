@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 import styles from './Footer.module.css'
 import LINKS from '../../constants/links'
 
@@ -9,9 +9,9 @@ export default function Footer() {
 			<div className={styles.links}>
 				{LINKS.map((item) => {
 					return (
-						<Link key={item.id} to={item.path}>
+						<AniLink key={item.id} to={item.path} fade>
 							{item.text.toUpperCase()}
-						</Link>
+						</AniLink>
 					)
 				})}
 			</div>

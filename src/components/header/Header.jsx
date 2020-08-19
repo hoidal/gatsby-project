@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'gatsby'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 import logo from '../../images/logo.png'
 import { FaAlignRight } from 'react-icons/fa'
 
@@ -14,9 +14,9 @@ export default function Header() {
 		<nav className={styles.header}>
 			<div className={styles.headerContainer}>
 				<div className={styles.navItems}>
-					<Link to="/">
+					<AniLink to="/" fade>
 						<img className={styles.logo} src={logo} alt="Better Hand Books Logo" />
-					</Link>
+					</AniLink>
 					<button type="button" className={styles.menuBtn} onClick={toggleNav}>
 						<FaAlignRight className={styles.menuIcon} />
 					</button>
@@ -31,7 +31,9 @@ export default function Header() {
 							key={item.id}
 							className={item.id === 'take-action' ? styles.takeActionButton : null}
 						>
-							<Link to={item.path}>{item.text.toUpperCase()}</Link>
+							<AniLink to={item.path} fade>
+								{item.text.toUpperCase()}
+							</AniLink>
 						</li>
 					))}
 				</ul>

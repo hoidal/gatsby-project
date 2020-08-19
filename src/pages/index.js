@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 import Layout from '../components/layout/Layout'
 import StyledHero from '../components/styled-hero/StyledHero'
 import Banner from '../components/banner/Banner'
@@ -13,9 +13,9 @@ export default function Home({ data }) {
 		<Layout>
 			<StyledHero home="true" img={data.defaultBackground.childImageSharp.fluid}>
 				<Banner title="Welcome to Better Hand Books" info="info fjaodisjfadsoijfadsf">
-					<Link to="/take-action" className="btn-white">
+					<AniLink to="/take-action" className="btn-white" fade>
 						Learn More
-					</Link>
+					</AniLink>
 				</Banner>
 			</StyledHero>
 			<About />

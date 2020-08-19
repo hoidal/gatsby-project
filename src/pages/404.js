@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../components/layout/Layout'
 import styles from '../page-styles/Error.module.css'
-import { Link } from 'gatsby'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 import Banner from '../components/banner/Banner'
 
 export default function Error() {
@@ -9,9 +9,9 @@ export default function Error() {
 		<Layout>
 			<header className={styles.error}>
 				<Banner title="Oops, something went wrong.">
-					<Link to="/" className="btn-white">
+					<AniLink to="/" className="btn-white" fade>
 						Back to Home Page
-					</Link>
+					</AniLink>
 				</Banner>
 			</header>
 		</Layout>
