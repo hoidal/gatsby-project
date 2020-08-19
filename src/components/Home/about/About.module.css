@@ -57,7 +57,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		border: 3px solid var(--primaryColor);
+		border: 3px solid var(--primaryTeal);
 		box-sizing: border-box;
 		top: -16px;
 		left: -16px;
