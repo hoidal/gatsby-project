@@ -4,7 +4,7 @@ import logo from '../../images/logo.png'
 import { FaAlignRight } from 'react-icons/fa'
 
 import styles from './Header.module.css'
-import links from '../../constants/links'
+import LINKS from '../../constants/links'
 
 export default function Header() {
 	const [isOpen, setNav] = useState(false)
@@ -27,7 +27,7 @@ export default function Header() {
 						isOpen ? `${styles.navLinks} ${styles.showNav}` : `${styles.navLinks}`
 					}
 				>
-					{links.map((item) => (
+					{LINKS.map((item) => (
 						<li
 							key={item.id}
 							className={item.id === 'take-action' ? styles.takeActionButton : null}

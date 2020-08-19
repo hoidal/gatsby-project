@@ -1,0 +1,25 @@
+.footer {
+	background: var(--primaryBlue);
+	padding: 2rem;
+	text-align: center;
+	color: var(--primaryWhite);
+}
+.links a {
+	display: inline-block;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: var(--primaryWhite);
+	margin: 0.5rem 1rem;
+	letter-spacing: var(--mainSpacing);
+	transition: var(--mainTransition);
+	font-weight: bold;
+}
+.links a:hover {
+	color: var(--primaryYellow);
+}
+
+.copyright {
+	text-transform: uppercase;
+	letter-spacing: var(--mainSpacing);
+	line-height: 2;
+}

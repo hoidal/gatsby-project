@@ -34,13 +34,13 @@
 	font-size: 1.2em;
 	padding: 1.25rem;
 	text-decoration: none;
-	color: var(--primaryBlack);
+	color: var(--primaryBlue);
 	transition: var(--mainTransition);
 	font-weight: bold;
 	letter-spacing: var(--mainSpacing);
 }
 .nav-links a:hover {
-	color: var(--primaryTeal);
+	color: var(--primaryYellow);
 }
 
 @media screen and (min-width: 576px) {
