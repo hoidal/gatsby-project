@@ -4,7 +4,7 @@ import Layout from '../components/layout/Layout'
 import HeroImage from '../components/hero-image/HeroImage'
 import Banner from '../components/banner/Banner'
 import About from '../components/Home/about/About'
-import Services from '../components/Home/services/Services'
+import Process from '../components/Home/process/Process'
 
 export default function Home() {
 	return (
@@ -17,7 +17,7 @@ export default function Home() {
 				</Banner>
 			</HeroImage>
 			<About />
-			<Services />
+			<Process />
 		</Layout>
 	)
 }

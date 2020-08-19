@@ -9,7 +9,6 @@ import LINKS from '../../constants/links'
 export default function Header() {
 	const [isOpen, setNav] = useState(false)
 	const toggleNav = () => setNav((isOpen) => !isOpen)
-	console.log(isOpen)
 
 	return (
 		<nav className={styles.header}>

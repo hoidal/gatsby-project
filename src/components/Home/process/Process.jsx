@@ -1,9 +1,9 @@
 import React from 'react'
 import Title from '../../title/Title'
-import styles from './Services.module.css'
+import styles from './Process.module.css'
 import PROCESS from '../../../constants/process'
 
-export default function Services() {
+export default function Process() {
 	return (
 		<section className={styles.process}>
 			<Title title="our" subtitle="process" />
