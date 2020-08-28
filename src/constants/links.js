@@ -12,7 +12,7 @@ export default [
 	{
 		id: 'faq',
 		path: '/faq',
-		text: 'FAQ',
+		text: 'faq',
 	},
 	{
 		id: 'contact',

@@ -31,5 +31,5 @@
 .submit:hover {
 	background: var(--primaryGray);
 	color: var(--primaryWhite);
-	border-color: var(--primaryGray);
+	border-color: var(--primaryBlack);
 }

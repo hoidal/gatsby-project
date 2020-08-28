@@ -8,7 +8,6 @@ import Process from '../components/Home/process/Process'
 import { graphql } from 'gatsby'
 
 export default function Home({ data }) {
-	console.log(data)
 	return (
 		<Layout>
 			<StyledHero home="true" img={data.defaultBackground.childImageSharp.fluid}>

@@ -19,7 +19,7 @@ const getAboutImage = graphql`
 export default function About() {
 	const { aboutImage } = useStaticQuery(getAboutImage)
 	return (
-		<section className={styles.about}>
+		<section className={styles.about} id="about-section">
 			<Title title="about" subtitle="us" />
 			<div className={styles.aboutCenter}>
 				<article className={styles.aboutImg}>

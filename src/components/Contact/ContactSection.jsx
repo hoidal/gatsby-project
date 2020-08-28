@@ -6,7 +6,7 @@ export default function ContactSection() {
 	return (
 		<section className={styles.contact}>
 			<Title title="contact" subtitle="us" />
-			<div className={styles.center}>
+			<div action="https://formspree.io/mvownaqb" method="POST" className={styles.center}>
 				<form className={styles.form}>
 					<div>
 						<input
@@ -21,7 +21,7 @@ export default function ContactSection() {
 					<div>
 						<input
 							type="email"
-							name="email"
+							name="emailf"
 							id="email"
 							className={styles.formControl}
 							placeholder="Email"
@@ -33,9 +33,8 @@ export default function ContactSection() {
 							type="tel"
 							name="phone"
 							id="phone"
-							pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 							className={styles.formControl}
-							placeholder="Phone"
+							placeholder="Phone Number (Optional)"
 						/>
 					</div>
 					<div>
@@ -44,7 +43,7 @@ export default function ContactSection() {
 							id="message"
 							rows="10"
 							className={styles.formControl}
-							placeholder="Message"
+							placeholder="Your Message"
 							required
 						/>
 					</div>
