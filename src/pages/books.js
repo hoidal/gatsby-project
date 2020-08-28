@@ -28,6 +28,8 @@ export default class books extends Component {
 									isbn,
 									title: bookData.title,
 									authors: bookData.authors,
+									pageCount: bookData.pageCount,
+									language: bookData.language,
 									categories: bookData.categories,
 									description: bookData.description,
 									imageUrl: bookData.imageLinks.thumbnail,
@@ -37,7 +39,6 @@ export default class books extends Component {
 									dateReceived: book.dateReceived,
 									dateDonated: book.dateDonated,
 									condition: book.condition,
-									notes: book.notes,
 								}
 								this.setState({
 									detailedBooks: [...detailedBookState, bookObj],
@@ -52,6 +53,7 @@ export default class books extends Component {
 		const { books, detailedBooks } = this.state
 		const availableBooks = books.filter((book) => !book.donatedDate)
 		const availableDetailedBooks = detailedBooks.filter((book) => !book.donatedDate)
+		console.log(availableDetailedBooks)
 		return (
 			<Layout>
 				<Title title="available" subtitle="books" />
