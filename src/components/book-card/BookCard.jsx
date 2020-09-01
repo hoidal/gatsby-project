@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 
 export default function BookCard({ data }) {
 	return (
-		<Card style={{ width: '10rem', margin: '2rem' }}>
+		<Card style={{ width: '10rem', margin: '1.5rem' }}>
 			<Card.Img
 				variant="top"
 				src={data.imageUrl}
