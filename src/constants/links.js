@@ -6,7 +6,7 @@ export default [
 	},
 	{
 		id: 'books',
-		path: '/books',
+		path: '/app/our-books',
 		text: 'books',
 	},
 	{

@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import Layout from '../components/layout/Layout'
 import Title from '../components/title/Title'
 import Books from '../components/books/Books'
+import Loader from 'react-loader-spinner'
 
-export default class books extends Component {
+export default class OurBooks extends Component {
 	state = {
+		isLoading: true,
 		books: [],
 		detailedBooks: [],
 	}
@@ -41,6 +43,7 @@ export default class books extends Component {
 									condition: book.condition,
 								}
 								this.setState({
+									isLoading: false,
 									detailedBooks: [...detailedBookState, bookObj],
 								})
 							}
@@ -50,14 +53,23 @@ export default class books extends Component {
 	}
 
 	render() {
-		const { books, detailedBooks } = this.state
+		const { isLoading, books, detailedBooks } = this.state
 		const availableBooks = books.filter((book) => !book.donatedDate)
 		const availableDetailedBooks = detailedBooks.filter((book) => !book.donatedDate)
-		console.log(availableDetailedBooks)
 		return (
 			<Layout>
 				<Title title="available" subtitle="books" />
-				<Books books={availableBooks} detailedBooks={availableDetailedBooks} />
+				{isLoading ? (
+					<Loader
+						style={{ margin: 'auto' }}
+						type="ThreeDots"
+						color="#00cfff"
+						height={100}
+						width={100}
+					/>
+				) : (
+					<Books books={availableBooks} detailedBooks={availableDetailedBooks} />
+				)}
 			</Layout>
 		)
 	}
