@@ -3,6 +3,7 @@ import Layout from '../components/layout/Layout'
 import Title from '../components/title/Title'
 import Books from '../components/books/Books'
 import Loader from 'react-loader-spinner'
+import BookModal from '../components/book-modal/BookModal'
 
 export default class OurBooks extends Component {
 	state = {
@@ -68,7 +69,11 @@ export default class OurBooks extends Component {
 						width={100}
 					/>
 				) : (
-					<Books books={availableBooks} detailedBooks={availableDetailedBooks} />
+					<Books
+						books={availableBooks}
+						detailedBooks={availableDetailedBooks}
+						show={this.openModal}
+					/>
 				)}
 			</Layout>
 		)

@@ -6,7 +6,7 @@ export default function Books({ books, detailedBooks }) {
 	return (
 		<div className={styles.container}>
 			{detailedBooks.map((book, index) => {
-				return <BookCard key={index} data={book}></BookCard>
+				return <BookCard key={index} data={book} />
 			})}
 		</div>
 	)

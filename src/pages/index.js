@@ -11,7 +11,7 @@ export default function Home({ data }) {
 	return (
 		<Layout>
 			<StyledHero home="true" img={data.defaultBackground.childImageSharp.fluid}>
-				<Banner title="Welcome to Better Hand Books" info="info fjaodisjfadsoijfadsf">
+				<Banner title="Welcome to Better Hand Books" info="">
 					<AniLink to="/take-action" className="btn-white" fade>
 						Learn More
 					</AniLink>
