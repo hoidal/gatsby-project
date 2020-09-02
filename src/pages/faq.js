@@ -4,11 +4,14 @@ import StyledHero from '../components/styled-hero/StyledHero'
 import ComingSoon from '../components/coming-soon/ComingSoon'
 import { graphql } from 'gatsby'
 
-export default function FAQ({ data }) {
+export default function FAQ({ data, content }) {
 	return (
 		<Layout>
-			{/* <StyledHero img={data.defaultBackground.childImageSharp.fluid} /> */}
-			<ComingSoon title="Coming Soon!" info="Check back soon for more details..." />
+			{content ? (
+				<StyledHero img={data.defaultBackground.childImageSharp.fluid} />
+			) : (
+				<ComingSoon title="Coming Soon!" info="Check back soon for more details..." />
+			)}
 		</Layout>
 	)
 }

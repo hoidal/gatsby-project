@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Layout from '../components/layout/Layout'
 import Title from '../components/title/Title'
-import Books from '../components/books/Books'
+import BookContainer from '../components/book-container/BookContainer'
 import Loader from 'react-loader-spinner'
 import BookModal from '../components/book-modal/BookModal'
 
@@ -10,13 +10,23 @@ export default class OurBooks extends Component {
 		isLoading: true,
 		books: [],
 		detailedBooks: [],
+		showModal: false,
+		modalData: null,
+	}
+
+	handleOpenModal = (e, data) => {
+		this.setState({ showModal: true, modalData: data })
+	}
+
+	handleCloseModal = () => {
+		this.setState({ showModal: false, modalData: null })
 	}
 
 	componentDidMount() {
 		fetch('https://api-better-hand-books.herokuapp.com/api/books')
 			.then((res) => res.json())
 			.then((books) =>
-				books.map((book) => {
+				books.forEach((book) => {
 					const isbn = book.isbn.replace(/\D+/g, '')
 					fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
 						.then((res) => res.json())
@@ -54,7 +64,7 @@ export default class OurBooks extends Component {
 	}
 
 	render() {
-		const { isLoading, books, detailedBooks } = this.state
+		const { isLoading, books, detailedBooks, showModal, modalData } = this.state
 		const availableBooks = books.filter((book) => !book.donatedDate)
 		const availableDetailedBooks = detailedBooks.filter((book) => !book.donatedDate)
 		return (
@@ -69,11 +79,20 @@ export default class OurBooks extends Component {
 						width={100}
 					/>
 				) : (
-					<Books
-						books={availableBooks}
-						detailedBooks={availableDetailedBooks}
-						show={this.openModal}
-					/>
+					<>
+						<BookContainer
+							books={availableBooks}
+							detailedBooks={availableDetailedBooks}
+							handleOpenModal={this.handleOpenModal}
+						/>
+						{showModal ? (
+							<BookModal
+								show={showModal}
+								data={modalData}
+								handleCloseModal={this.handleCloseModal}
+							/>
+						) : null}
+					</>
 				)}
 			</Layout>
 		)
