@@ -1,7 +1,8 @@
 import React from 'react'
+import { FaWindowClose } from 'react-icons/fa'
 import styled from 'styled-components'
 
-const Modal = styled.section`
+const Modal = styled.aside`
 	display: ${(props) => (props.show ? 'block' : 'none')};
 	position: fixed;
 	top: 0;
@@ -11,32 +12,74 @@ const Modal = styled.section`
 	background: rgba(0, 0, 0, 0.6);
 	.modal-main {
 		position: fixed;
+		overflow: scroll;
 		background: white;
-		width: 80%;
 		height: auto;
+		max-height: 90%;
+		width: 80%;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		padding: 1rem;
-		.section-1 {
+		padding: 2rem;
+		border-radius: 10px;
+
+		#close-button {
+			position: absolute;
+			margin: 1rem;
+			top: 0;
+			right: 0;
+			font-size: 2.5em;
+			color: #fc4a1a;
+			transition: all 0.3s linear;
+
+			&:hover {
+				color: #cf2d02;
+			}
+		}
+
+		.title-container {
+			margin-top: 2rem;
 			text-align: center;
-			width: 30%;
+			#title {
+				color: #00cfff;
+			}
+		}
+		.details-container {
 			img {
-				width: 60%;
+				float: left;
+				padding-right: 1.5rem;
+				padding-bottom: 1.5rem;
+			}
+			.details {
 			}
 		}
 	}
 `
 
 export default function BookModal({ show, data, handleCloseModal }) {
+	console.log(data)
 	return (
 		<Modal show={show}>
 			<div className="modal-main">
-				<div className="section-1">
-					<h2>{data.title}</h2>
-					<img src={data.imageUrl} />
+				<FaWindowClose id="close-button" onClick={handleCloseModal} />
+				<div className="title-container">
+					<h2 id="title">{data.title}</h2>
 					<h4>{`By ${data.authors}`}</h4>
 				</div>
+				<div className="details-container">
+					<img src={data.imageUrl} alt={data.title} />
+					<div className="details">
+						<p>{data.description.length < 1500 ? data.description : null}</p>
+						{data.condition ? <h5>Condition: {data.condition}</h5> : null}
+						{data.pageCount ? <h5>Pages: {data.pageCount}</h5> : null}
+					</div>
+				</div>
+				<p>
+					<em>
+						Interested in this book? Please contact us with details about your
+						organization and we will make sure we get it to good use!
+					</em>
+				</p>
 			</div>
 		</Modal>
 	)
