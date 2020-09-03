@@ -9,6 +9,7 @@ export default function ContactSection() {
 			<div className={styles.center}>
 				<form name="contact" method="POST" data-netlify="true" className={styles.form}>
 					<div>
+						<input type="hidden" name="form-name" value="contact" />
 						<input
 							type="name"
 							name="name"
