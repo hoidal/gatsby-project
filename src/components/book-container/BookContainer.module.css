@@ -1,8 +1,9 @@
 .container {
 	margin-bottom: 3rem;
-	padding: 0rem 3rem;
+	padding: 0rem 5rem;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 	grid-gap: 2rem;
+	justify-content: center;
 	align-items: center;
 }

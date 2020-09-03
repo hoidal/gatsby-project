@@ -4,6 +4,7 @@ import Title from '../components/title/Title'
 import BookContainer from '../components/book-container/BookContainer'
 import Loader from 'react-loader-spinner'
 import BookModal from '../components/book-modal/BookModal'
+import Pagination from '../components/pagination/Pagination'
 
 export default class OurBooks extends Component {
 	state = {
@@ -12,14 +13,23 @@ export default class OurBooks extends Component {
 		detailedBooks: [],
 		showModal: false,
 		modalData: null,
+		booksPerPage: 10,
+		currentPage: 1,
 	}
 
+	// open modal with individual books details
 	handleOpenModal = (e, data) => {
 		this.setState({ showModal: true, modalData: data })
 	}
 
+	// close modal with individual book details
 	handleCloseModal = () => {
 		this.setState({ showModal: false, modalData: null })
+	}
+
+	// change page
+	handlePagination = (pageNumber) => {
+		this.setState({ currentPage: pageNumber })
 	}
 
 	componentDidMount() {
@@ -64,9 +74,19 @@ export default class OurBooks extends Component {
 	}
 
 	render() {
-		const { isLoading, books, detailedBooks, showModal, modalData } = this.state
-		const availableBooks = books.filter((book) => !book.donatedDate)
+		const {
+			isLoading,
+			books,
+			detailedBooks,
+			showModal,
+			modalData,
+			booksPerPage,
+			currentPage,
+		} = this.state
 		const availableDetailedBooks = detailedBooks.filter((book) => !book.donatedDate)
+		const indexOfLastBook = currentPage * booksPerPage
+		const indexOfFirstBook = indexOfLastBook - booksPerPage
+		const currentBooks = availableDetailedBooks.slice(indexOfFirstBook, indexOfLastBook)
 		return (
 			<Layout>
 				<Title title="available" subtitle="books" />
@@ -81,8 +101,7 @@ export default class OurBooks extends Component {
 				) : (
 					<>
 						<BookContainer
-							books={availableBooks}
-							detailedBooks={availableDetailedBooks}
+							detailedBooks={currentBooks}
 							handleOpenModal={this.handleOpenModal}
 						/>
 						{showModal ? (
@@ -92,6 +111,12 @@ export default class OurBooks extends Component {
 								handleCloseModal={this.handleCloseModal}
 							/>
 						) : null}
+						<Pagination
+							booksPerPage={booksPerPage}
+							totalBooks={availableDetailedBooks.length}
+							currentPage={currentPage}
+							handlePagination={this.handlePagination}
+						/>
 					</>
 				)}
 			</Layout>

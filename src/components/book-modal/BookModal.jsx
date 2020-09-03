@@ -22,6 +22,7 @@ const Modal = styled.aside`
 		transform: translate(-50%, -50%);
 		padding: 2rem;
 		border-radius: 10px;
+		text-align: center;
 
 		#close-button {
 			position: absolute;
@@ -45,13 +46,22 @@ const Modal = styled.aside`
 			}
 		}
 		.details-container {
+			padding-bottom: 1rem;
 			img {
 				float: left;
 				padding-right: 1.5rem;
 				padding-bottom: 1.5rem;
+				height: 15rem;
 			}
 			.details {
+				text-align: left;
 			}
+		}
+		#request-book {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
 		}
 	}
 `
@@ -74,7 +84,7 @@ export default function BookModal({ show, data, handleCloseModal }) {
 						{data.pageCount ? <h5>Pages: {data.pageCount}</h5> : null}
 					</div>
 				</div>
-				<p>
+				<p id="request-book">
 					<em>
 						Interested in this book? Please contact us with details about your
 						organization and we will make sure we get it to good use!
