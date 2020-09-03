@@ -6,17 +6,19 @@ import Loader from 'react-loader-spinner'
 import BookModal from '../components/book-modal/BookModal'
 import Pagination from '../components/pagination/Pagination'
 import SEO from '../components/seo/SEO'
+import { usePromiseTracker, trackPromise } from 'react-promise-tracker'
 
 const BASE_URL = 'https://api-better-hand-books.herokuapp.com/api/books'
 const GOOGLE_BOOKS_URL = 'https://www.googleapis.com/books/v1/volumes?q=isbn:'
 
 export default function OurBooks() {
-	const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(false)
 	const [ourBooks, setOurBooks] = useState([])
 	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState(null)
 	const [booksPerPage, setBooksPerPage] = useState(10)
 	const [currentPage, setCurrentPage] = useState(1)
+	const { promiseInProgress } = usePromiseTracker()
 
 	const handleOpenModal = (e, data) => {
 		setShowModal(true)
@@ -32,47 +34,50 @@ export default function OurBooks() {
 		setCurrentPage(pageNumber)
 	}
 
+	const fetchBooks = async () => {
+		const fetchedBooks = []
+		const response = await fetch(BASE_URL)
+		const books = await response.json()
+		books.map(async (book) => {
+			const isbn = book.isbn.replace(/\D+/g, '')
+			const response = await fetch(GOOGLE_BOOKS_URL + isbn)
+			console.log(response)
+			const data = await response.json()
+			if (data.totalItems < 1) {
+				const bookObj = { ...book, hasDetails: false }
+				fetchedBooks.push(bookObj)
+			} else {
+				const bookData = data.items[0].volumeInfo
+				const bookObj = {
+					hasDetails: true,
+					isbn,
+					title: bookData.title,
+					authors: bookData.authors,
+					pageCount: bookData.pageCount,
+					language: bookData.language,
+					categories: bookData.categories,
+					description: bookData.description,
+					imageUrl: bookData.imageLinks.thumbnail,
+					maturityRating: bookData.maturityRating,
+					publishedDate: bookData.publishedDate,
+					publisher: bookData.publisher,
+					dateReceived: book.dateReceived,
+					dateDonated: book.dateDonated,
+					condition: book.condition,
+				}
+				fetchedBooks.push(bookObj)
+			}
+		})
+		setOurBooks(fetchedBooks)
+	}
+
 	// fetch books...first from Better Hand Books API then fill out data from Google Books API
 	useEffect(() => {
-		const fetchBooks = async () => {
-			const fetchedBooks = []
-			const response = await fetch(BASE_URL)
-			const books = await response.json()
-			books.map(async (book) => {
-				const isbn = book.isbn.replace(/\D+/g, '')
-				const response = await fetch(GOOGLE_BOOKS_URL + isbn)
-				const data = await response.json()
-				if (data.totalItems < 1) {
-					const bookObj = { ...book, hasDetails: false }
-					fetchedBooks.push(bookObj)
-				} else {
-					const bookData = data.items[0].volumeInfo
-					const bookObj = {
-						hasDetails: true,
-						isbn,
-						title: bookData.title,
-						authors: bookData.authors,
-						pageCount: bookData.pageCount,
-						language: bookData.language,
-						categories: bookData.categories,
-						description: bookData.description,
-						imageUrl: bookData.imageLinks.thumbnail,
-						maturityRating: bookData.maturityRating,
-						publishedDate: bookData.publishedDate,
-						publisher: bookData.publisher,
-						dateReceived: book.dateReceived,
-						dateDonated: book.dateDonated,
-						condition: book.condition,
-					}
-					fetchedBooks.push(bookObj)
-				}
-			})
-			setLoading(false)
-			setOurBooks(fetchedBooks)
-		}
+		trackPromise(fetchBooks())
+		setLoading(promiseInProgress)
+	}, [promiseInProgress])
 
-		fetchBooks()
-	}, [])
+	console.log(promiseInProgress)
 
 	const availableBooks = ourBooks.filter((book) => !book.donatedDate)
 	const availableBooksWithDetails = availableBooks.filter((book) => book.hasDetails)
