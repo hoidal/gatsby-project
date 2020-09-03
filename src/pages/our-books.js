@@ -11,7 +11,7 @@ const BASE_URL = 'https://api-better-hand-books.herokuapp.com/api/books'
 const GOOGLE_BOOKS_URL = 'https://www.googleapis.com/books/v1/volumes?q=isbn:'
 
 export default function OurBooks() {
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [ourBooks, setOurBooks] = useState([])
 	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState(null)
@@ -36,7 +36,6 @@ export default function OurBooks() {
 	useEffect(() => {
 		const fetchBooks = async () => {
 			const fetchedBooks = []
-			setLoading(true)
 			const response = await fetch(BASE_URL)
 			const books = await response.json()
 			books.map(async (book) => {
@@ -68,11 +67,11 @@ export default function OurBooks() {
 					fetchedBooks.push(bookObj)
 				}
 			})
+			setLoading(false)
 			setOurBooks(fetchedBooks)
 		}
 
 		fetchBooks()
-		setLoading(false)
 	}, [])
 
 	const availableBooks = ourBooks.filter((book) => !book.donatedDate)
