@@ -6,8 +6,8 @@ export default function ContactSection() {
 	return (
 		<section className={styles.contact}>
 			<Title title="contact" subtitle="us" />
-			<div name="contact" method="POST" data-netlify="true" className={styles.center}>
-				<form className={styles.form}>
+			<div className={styles.center}>
+				<form name="contact" method="POST" data-netlify="true" className={styles.form}>
 					<div>
 						<input
 							type="name"
