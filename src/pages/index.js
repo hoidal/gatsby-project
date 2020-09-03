@@ -6,10 +6,12 @@ import Banner from '../components/banner/Banner'
 import About from '../components/Home/about/About'
 import Process from '../components/Home/process/Process'
 import { graphql } from 'gatsby'
+import SEO from '../components/seo/SEO'
 
 export default function Home({ data }) {
 	return (
 		<Layout>
+			<SEO title="Home" />
 			<StyledHero home="true" img={data.defaultBackground.childImageSharp.fluid}>
 				<Banner title="Welcome to Better Hand Books" info="">
 					<AniLink to="/take-action" className="btn-white" fade>

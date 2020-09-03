@@ -7,9 +7,10 @@
 module.exports = {
 	siteMetadata: {
 		title: 'Better Hand Books',
-		description: 'add site description here',
+		description:
+			'Better Hand Books is a non-profit geared at ensuring your old, used, and unwanted books find a home with organizations in need.',
 		author: '@BetterHandBooks',
-		data: ['item1', 'item2'],
+		siteUrl: 'https://betterhandbooks.com',
 	},
 	plugins: [
 		{
@@ -19,10 +20,18 @@ module.exports = {
 				path: `${__dirname}/src/images`,
 			},
 		},
-		`gatsby-transformer-sharp`,
+		{
+			resolve: 'gatsby-plugin-robots-txt',
+			options: {
+				host: 'https://www.betterhandbooks.com',
+				sitemap: 'https://www.betterhandbooks.com/sitemap.xml',
+				policy: [{ userAgent: '*', allow: '/' }],
+			},
+		}`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		`gatsby-plugin-sass`,
 		`gatsby-plugin-styled-components`,
 		`gatsby-plugin-transition-link`,
+		`gatsby-plugin-react-helmet`,
 	],
 }

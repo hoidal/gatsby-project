@@ -16,15 +16,18 @@ const Modal = styled.aside`
 		background: white;
 		height: auto;
 		max-height: 90%;
-		width: 80%;
+		width: 60%;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		padding: 2rem;
+		padding: 1rem 4rem;
 		border-radius: 10px;
 		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
-		#close-button {
+		.close-button {
 			position: absolute;
 			margin: 1rem;
 			top: 0;
@@ -37,31 +40,30 @@ const Modal = styled.aside`
 				color: #cf2d02;
 			}
 		}
-
-		.title-container {
-			margin-top: 2rem;
-			text-align: center;
-			#title {
-				color: #00cfff;
+		.book-info {
+			.title-container {
+				margin-top: 2rem;
+				text-align: center;
+				.title {
+					color: #00cfff;
+				}
+			}
+			.details-container {
+				padding-bottom: 1rem;
+				img {
+					float: left;
+					padding-right: 1.5rem;
+					padding-bottom: 1.5rem;
+					height: 100%;
+					width: 25%;
+				}
+				.details {
+					text-align: left;
+				}
 			}
 		}
-		.details-container {
-			padding-bottom: 1rem;
-			img {
-				float: left;
-				padding-right: 1.5rem;
-				padding-bottom: 1.5rem;
-				height: 15rem;
-			}
-			.details {
-				text-align: left;
-			}
-		}
-		#request-book {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
+		#contact-instructions-container {
+			text-align: left;
 		}
 	}
 `
@@ -71,25 +73,29 @@ export default function BookModal({ show, data, handleCloseModal }) {
 	return (
 		<Modal show={show}>
 			<div className="modal-main">
-				<FaWindowClose id="close-button" onClick={handleCloseModal} />
-				<div className="title-container">
-					<h2 id="title">{data.title}</h2>
-					<h4>{`By ${data.authors}`}</h4>
-				</div>
-				<div className="details-container">
-					<img src={data.imageUrl} alt={data.title} />
-					<div className="details">
-						<p>{data.description.length < 1500 ? data.description : null}</p>
-						{data.condition ? <h5>Condition: {data.condition}</h5> : null}
-						{data.pageCount ? <h5>Pages: {data.pageCount}</h5> : null}
+				<FaWindowClose className="close-button" onClick={handleCloseModal} />
+				<div className="book-info">
+					<div className="title-container">
+						<h2 className="title">{data.title}</h2>
+						<h4>{`By ${data.authors}`}</h4>
+					</div>
+					<div className="details-container">
+						<img src={data.imageUrl} alt={data.title} />
+						<div className="details">
+							<p>{data.description.length < 1500 ? data.description : null}</p>
+							{data.condition ? <h5>Condition: {data.condition}</h5> : null}
+							{data.pageCount ? <h5>Pages: {data.pageCount}</h5> : null}
+						</div>
 					</div>
 				</div>
-				<p id="request-book">
-					<em>
-						Interested in this book? Please contact us with details about your
-						organization and we will make sure we get it to good use!
-					</em>
-				</p>
+				<div className="contact-instructions-container">
+					<p>
+						<em>
+							Interested in this book? Please contact us with details about your
+							organization and we will make sure we get it to good use!
+						</em>
+					</p>
+				</div>
 			</div>
 		</Modal>
 	)

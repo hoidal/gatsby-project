@@ -5,6 +5,7 @@ import BookContainer from '../components/book-container/BookContainer'
 import Loader from 'react-loader-spinner'
 import BookModal from '../components/book-modal/BookModal'
 import Pagination from '../components/pagination/Pagination'
+import SEO from '../components/seo/SEO'
 
 export default class OurBooks extends Component {
 	state = {
@@ -89,6 +90,7 @@ export default class OurBooks extends Component {
 		const currentBooks = availableDetailedBooks.slice(indexOfFirstBook, indexOfLastBook)
 		return (
 			<Layout>
+				<SEO title="Our Books" />
 				<Title title="available" subtitle="books" />
 				{isLoading ? (
 					<Loader
@@ -101,6 +103,7 @@ export default class OurBooks extends Component {
 				) : (
 					<>
 						<BookContainer
+							nonDetailedBooks={books}
 							detailedBooks={currentBooks}
 							handleOpenModal={this.handleOpenModal}
 						/>

@@ -3,6 +3,7 @@ import Title from '../../title/Title'
 import styles from './About.module.css'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 const getAboutImage = graphql`
 	query aboutImage {
@@ -43,9 +44,11 @@ export default function About() {
 						initial run proves successful, we will form a nonprofit and expand our
 						outreach as far as possible. Thank you in advance for your support!
 					</p>
-					<button type="button" className="btn-primary">
-						get involved
-					</button>
+					<AniLink to="/take-action" fade>
+						<button type="button" className="btn-primary">
+							get involved
+						</button>
+					</AniLink>
 				</article>
 			</div>
 		</section>

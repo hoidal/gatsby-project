@@ -3,10 +3,12 @@ import Layout from '../components/layout/Layout'
 import StyledHero from '../components/styled-hero/StyledHero'
 import ComingSoon from '../components/coming-soon/ComingSoon'
 import { graphql } from 'gatsby'
+import SEO from '../components/seo/SEO'
 
 export default function FAQ({ data, content }) {
 	return (
 		<Layout>
+			<SEO title="FAQ" />
 			{content ? (
 				<StyledHero img={data.defaultBackground.childImageSharp.fluid} />
 			) : (

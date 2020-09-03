@@ -6,7 +6,7 @@ export default function ContactSection() {
 	return (
 		<section className={styles.contact}>
 			<Title title="contact" subtitle="us" />
-			<div action="https://formspree.io/mvownaqb" method="POST" className={styles.center}>
+			<div name="contact" method="POST" data-netlify="true" className={styles.center}>
 				<form className={styles.form}>
 					<div>
 						<input
