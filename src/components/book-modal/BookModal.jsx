@@ -55,7 +55,7 @@ const Modal = styled.aside`
 					padding-right: 1.5rem;
 					padding-bottom: 1.5rem;
 					height: 100%;
-					width: 25%;
+					width: 12rem;
 				}
 				.details {
 					text-align: left;
@@ -66,10 +66,32 @@ const Modal = styled.aside`
 			text-align: left;
 		}
 	}
+	@media (max-width: 992px) {
+		.modal-main {
+			width: 80%;
+		}
+	}
+	@media (max-width: 572px) {
+		.modal-main {
+			width: 90%;
+			.book-info {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.details-container {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					img {
+						float: none;
+					}
+				}
+			}
+		}
+	}
 `
 
 export default function BookModal({ show, data, handleCloseModal }) {
-	console.log(data)
 	return (
 		<Modal show={show}>
 			<div className="modal-main">
