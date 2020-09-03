@@ -24,7 +24,6 @@ export default function Header() {
 	const toggleNav = () => setNav((isOpen) => !isOpen)
 
 	const { logoImage } = useStaticQuery(getLogoImage)
-	console.log(logoImage)
 
 	return (
 		<nav className={styles.header}>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../components/layout/Layout'
 import Title from '../components/title/Title'
 import BookContainer from '../components/book-container/BookContainer'
@@ -7,122 +7,109 @@ import BookModal from '../components/book-modal/BookModal'
 import Pagination from '../components/pagination/Pagination'
 import SEO from '../components/seo/SEO'
 
-export default class OurBooks extends Component {
-	state = {
-		isLoading: true,
-		books: [],
-		detailedBooks: [],
-		showModal: false,
-		modalData: null,
-		booksPerPage: 10,
-		currentPage: 1,
+const BASE_URL = 'https://api-better-hand-books.herokuapp.com/api/books'
+const GOOGLE_BOOKS_URL = 'https://www.googleapis.com/books/v1/volumes?q=isbn:'
+
+export default function OurBooks() {
+	const [loading, setLoading] = useState(false)
+	const [ourBooks, setOurBooks] = useState([])
+	const [showModal, setShowModal] = useState(false)
+	const [modalData, setModalData] = useState(null)
+	const [booksPerPage, setBooksPerPage] = useState(10)
+	const [currentPage, setCurrentPage] = useState(1)
+
+	const handleOpenModal = (e, data) => {
+		setShowModal(true)
+		setModalData(data)
 	}
 
-	// open modal with individual books details
-	handleOpenModal = (e, data) => {
-		this.setState({ showModal: true, modalData: data })
+	const handleCloseModal = (e, data) => {
+		setShowModal(false)
+		setModalData(null)
 	}
 
-	// close modal with individual book details
-	handleCloseModal = () => {
-		this.setState({ showModal: false, modalData: null })
+	const handlePagination = (pageNumber) => {
+		setCurrentPage(pageNumber)
 	}
 
-	// change page
-	handlePagination = (pageNumber) => {
-		this.setState({ currentPage: pageNumber })
-	}
+	// fetch books...first from Better Hand Books API then fill out data from Google Books API
+	useEffect(() => {
+		const fetchBooks = async () => {
+			const fetchedBooks = []
+			setLoading(true)
+			const response = await fetch(BASE_URL)
+			const books = await response.json()
+			books.map(async (book) => {
+				const isbn = book.isbn.replace(/\D+/g, '')
+				const response = await fetch(GOOGLE_BOOKS_URL + isbn)
+				const data = await response.json()
+				if (data.totalItems < 1) {
+					const bookObj = { ...book, hasDetails: false }
+					fetchedBooks.push(bookObj)
+				} else {
+					const bookData = data.items[0].volumeInfo
+					const bookObj = {
+						hasDetails: true,
+						isbn,
+						title: bookData.title,
+						authors: bookData.authors,
+						pageCount: bookData.pageCount,
+						language: bookData.language,
+						categories: bookData.categories,
+						description: bookData.description,
+						imageUrl: bookData.imageLinks.thumbnail,
+						maturityRating: bookData.maturityRating,
+						publishedDate: bookData.publishedDate,
+						publisher: bookData.publisher,
+						dateReceived: book.dateReceived,
+						dateDonated: book.dateDonated,
+						condition: book.condition,
+					}
+					fetchedBooks.push(bookObj)
+				}
+			})
+			setOurBooks(fetchedBooks)
+		}
 
-	componentDidMount() {
-		fetch('https://api-better-hand-books.herokuapp.com/api/books')
-			.then((res) => res.json())
-			.then((books) =>
-				books.forEach((book) => {
-					const isbn = book.isbn.replace(/\D+/g, '')
-					fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-						.then((res) => res.json())
-						.then((data) => {
-							const bookState = [...this.state.books]
-							if (data.totalItems < 1) {
-								this.setState({ books: [...bookState, book] })
-							} else {
-								const detailedBookState = [...this.state.detailedBooks]
-								const bookData = data.items[0].volumeInfo
-								const bookObj = {
-									isbn,
-									title: bookData.title,
-									authors: bookData.authors,
-									pageCount: bookData.pageCount,
-									language: bookData.language,
-									categories: bookData.categories,
-									description: bookData.description,
-									imageUrl: bookData.imageLinks.thumbnail,
-									maturityRating: bookData.maturityRating,
-									publishedDate: bookData.publishedDate,
-									publisher: bookData.publisher,
-									dateReceived: book.dateReceived,
-									dateDonated: book.dateDonated,
-									condition: book.condition,
-								}
-								this.setState({
-									isLoading: false,
-									detailedBooks: [...detailedBookState, bookObj],
-								})
-							}
-						})
-				})
-			)
-	}
+		fetchBooks()
+		setLoading(false)
+	}, [])
 
-	render() {
-		const {
-			isLoading,
-			books,
-			detailedBooks,
-			showModal,
-			modalData,
-			booksPerPage,
-			currentPage,
-		} = this.state
-		const availableDetailedBooks = detailedBooks.filter((book) => !book.donatedDate)
-		const indexOfLastBook = currentPage * booksPerPage
-		const indexOfFirstBook = indexOfLastBook - booksPerPage
-		const currentBooks = availableDetailedBooks.slice(indexOfFirstBook, indexOfLastBook)
-		return (
-			<Layout>
-				<SEO title="Our Books" />
-				<Title title="available" subtitle="books" />
-				{isLoading ? (
-					<Loader
-						style={{ margin: 'auto' }}
-						type="ThreeDots"
-						color="#00cfff"
-						height={100}
-						width={100}
+	const availableBooks = ourBooks.filter((book) => !book.donatedDate)
+	const availableBooksWithDetails = availableBooks.filter((book) => book.hasDetails)
+	const indexOfLastBook = currentPage * booksPerPage
+	const indexOfFirstBook = indexOfLastBook - booksPerPage
+	const currentBooks = availableBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
+	return (
+		<Layout>
+			<SEO title="Our Books" />
+			<Title title="available" subtitle="books" />
+			{loading ? (
+				<Loader
+					style={{ margin: 'auto' }}
+					type="ThreeDots"
+					color="#00cfff"
+					height={100}
+					width={100}
+				/>
+			) : (
+				<>
+					<BookContainer books={currentBooks} handleOpenModal={handleOpenModal} />
+					{showModal ? (
+						<BookModal
+							show={showModal}
+							data={modalData}
+							handleCloseModal={handleCloseModal}
+						/>
+					) : null}
+					<Pagination
+						booksPerPage={booksPerPage}
+						totalBooks={availableBooksWithDetails.length}
+						currentPage={currentPage}
+						handlePagination={handlePagination}
 					/>
-				) : (
-					<>
-						<BookContainer
-							nonDetailedBooks={books}
-							detailedBooks={currentBooks}
-							handleOpenModal={this.handleOpenModal}
-						/>
-						{showModal ? (
-							<BookModal
-								show={showModal}
-								data={modalData}
-								handleCloseModal={this.handleCloseModal}
-							/>
-						) : null}
-						<Pagination
-							booksPerPage={booksPerPage}
-							totalBooks={availableDetailedBooks.length}
-							currentPage={currentPage}
-							handlePagination={this.handlePagination}
-						/>
-					</>
-				)}
-			</Layout>
-		)
-	}
+				</>
+			)}
+		</Layout>
+	)
 }
