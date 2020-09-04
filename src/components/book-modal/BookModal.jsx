@@ -99,7 +99,7 @@ export default function BookModal({ show, data, handleCloseModal }) {
 				<div className="book-info">
 					<div className="title-container">
 						<h2 className="title">{data.title}</h2>
-						<h4>{`By ${data.authors}`}</h4>
+						<h4>{`By ${data.author}`}</h4>
 					</div>
 					<div className="details-container">
 						<img src={data.imageUrl} alt={data.title} />
