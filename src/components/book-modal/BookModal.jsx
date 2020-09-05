@@ -73,6 +73,7 @@ const Modal = styled.aside`
 	}
 	@media (max-width: 572px) {
 		.modal-main {
+			overflow: scroll;
 			width: 90%;
 			.book-info {
 				display: flex;
