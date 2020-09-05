@@ -104,7 +104,11 @@ export default function BookModal({ show, data, handleCloseModal }) {
 					<div className="details-container">
 						<img src={data.imageUrl} alt={data.title} />
 						<div className="details">
-							<p>{data.description.length < 1500 ? data.description : null}</p>
+							<p>
+								{!data.description || data.description.length > 1500
+									? null
+									: data.description}
+							</p>
 							{data.condition ? <h5>Condition: {data.condition}</h5> : null}
 							{data.pageCount ? <h5>Pages: {data.pageCount}</h5> : null}
 						</div>

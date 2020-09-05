@@ -46,6 +46,7 @@ export default function OurBooks() {
 	const indexOfLastBook = currentPage * booksPerPage
 	const indexOfFirstBook = indexOfLastBook - booksPerPage
 	const currentBooks = availableBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
+	console.log(currentBooks)
 	return (
 		<Layout>
 			<SEO title="Our Books" />
