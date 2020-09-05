@@ -14,7 +14,7 @@ export default function OurBooks() {
 	const [ourBooks, setOurBooks] = useState([])
 	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState(null)
-	const [booksPerPage] = useState(10)
+	const [booksPerPage] = useState(12)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const handleOpenModal = (e, data) => {
