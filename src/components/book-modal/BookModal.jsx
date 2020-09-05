@@ -62,7 +62,7 @@ const Modal = styled.aside`
 				}
 			}
 		}
-		#contact-instructions-container {
+		.contact-instructions-container {
 			text-align: left;
 		}
 	}
@@ -85,10 +85,9 @@ const Modal = styled.aside`
 					align-items: center;
 					img {
 						float: none;
+						margin: 1rem auto;
+						padding: 0;
 					}
-				}
-				#contact-instructions-container {
-					display: none;
 				}
 			}
 		}
@@ -120,10 +119,8 @@ export default function BookModal({ show, data, handleCloseModal }) {
 				</div>
 				<div className="contact-instructions-container">
 					<p>
-						<em>
-							Interested in this book? Please contact us with details about your
-							organization and we will make sure we get it to good use!
-						</em>
+						Interested in this book? Please contact us with details about your
+						organization and we will make sure we get it to good use!
 					</p>
 				</div>
 			</div>
