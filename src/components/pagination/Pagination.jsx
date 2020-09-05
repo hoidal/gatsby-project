@@ -14,7 +14,7 @@ export default function Pagination({ booksPerPage, totalBooks, currentPage, hand
 					<li key={number}>
 						<a
 							onClick={() => handlePagination(number)}
-							href=""
+							href="javascript:void()"
 							className={number === currentPage ? styles.active : null}
 						>
 							{number}
