@@ -90,6 +90,9 @@ const Modal = styled.aside`
 					}
 				}
 			}
+			.contact-instructions-container {
+				display: none;
+			}
 		}
 	}
 `
