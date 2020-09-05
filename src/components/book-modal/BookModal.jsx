@@ -87,6 +87,9 @@ const Modal = styled.aside`
 						float: none;
 					}
 				}
+				#contact-instructions-container {
+					display: none;
+				}
 			}
 		}
 	}
