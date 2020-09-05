@@ -14,7 +14,7 @@ export default function OurBooks() {
 	const [ourBooks, setOurBooks] = useState([])
 	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState(null)
-	const [booksPerPage, setBooksPerPage] = useState(10)
+	const [booksPerPage] = useState(10)
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const handleOpenModal = (e, data) => {
@@ -27,9 +27,7 @@ export default function OurBooks() {
 		setModalData(null)
 	}
 
-	const handlePagination = (pageNumber) => {
-		setCurrentPage(pageNumber)
-	}
+	const handlePagination = (pageNumber) => setCurrentPage(pageNumber)
 
 	//fetch books
 	useEffect(() => {
