@@ -75,6 +75,7 @@ const Modal = styled.aside`
 		.modal-main {
 			overflow: scroll;
 			width: 90%;
+			padding: 1rem 2rem;
 			.book-info {
 				display: flex;
 				flex-direction: column;
