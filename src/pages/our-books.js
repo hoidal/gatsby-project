@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 import Layout from '../components/layout/Layout'
 import Title from '../components/title/Title'
 import BookContainer from '../components/book-container/BookContainer'
@@ -9,74 +9,78 @@ import SEO from '../components/seo/SEO'
 
 const BASE_URL = 'https://api-better-hand-books.herokuapp.com/api/books'
 
-export default function OurBooks() {
-	const [loading, setLoading] = useState(false)
-	const [ourBooks, setOurBooks] = useState([])
-	const [showModal, setShowModal] = useState(false)
-	const [modalData, setModalData] = useState(null)
-	const [booksPerPage] = useState(12)
-	const [currentPage, setCurrentPage] = useState(1)
-
-	const handleOpenModal = (e, data) => {
-		setShowModal(true)
-		setModalData(data)
+export default class OurBooks extends Component {
+	state = {
+		loading: false,
+		ourBooks: [],
+		showModal: false,
+		modalData: null,
+		booksPerPage: 12,
+		currentPage: 1,
 	}
 
-	const handleCloseModal = (e, data) => {
-		setShowModal(false)
-		setModalData(null)
+	handleOpenModal = (e, data) => {
+		this.setState({ showModal: true, modalData: data })
 	}
 
-	const handlePagination = (pageNumber) => setCurrentPage(pageNumber)
+	handleCloseModal = (e, data) => {
+		this.setState({ showModal: false, modalData: null })
+	}
 
-	//fetch books
-	useEffect(() => {
+	handlePagination = (pageNumber) => this.setState({ currentPage: pageNumber })
+
+	componentDidMount() {
 		const fetchBooks = async () => {
-			setLoading(true)
+			this.setState({ loading: true })
 			const response = await fetch(BASE_URL)
 			const books = await response.json()
-			setOurBooks(books)
-			setLoading(false)
+			this.setState({ ourBooks: books })
+			this.setState({ loading: false })
 		}
 		fetchBooks()
-	}, [])
+	}
 
-	const availableBooks = ourBooks.filter((book) => !book.donatedDate)
-	const availableBooksWithDetails = availableBooks.filter((book) => book.hasDetails)
-	const indexOfLastBook = currentPage * booksPerPage
-	const indexOfFirstBook = indexOfLastBook - booksPerPage
-	const currentBooks = availableBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
-
-	return (
-		<Layout>
-			<SEO title="Our Books" />
-			<Title title="available" subtitle="books" />
-			{loading ? (
-				<Loader
-					style={{ margin: 'auto' }}
-					type="ThreeDots"
-					color="#00cfff"
-					height={100}
-					width={100}
-				/>
-			) : (
-				<>
-					<BookContainer books={currentBooks} handleOpenModal={handleOpenModal} />
-					{showModal ? (
-						<BookModal
-							show={showModal}
-							data={modalData}
-							handleCloseModal={handleCloseModal}
-						/>
-					) : null}
-					<Pagination
-						booksPerPage={booksPerPage}
-						totalBooks={availableBooksWithDetails.length}
-						currentPage={currentPage}
-						handlePagination={handlePagination}
+	render() {
+		const { loading, ourBooks, showModal, modalData, booksPerPage, currentPage } = this.state
+		const availableBooks = ourBooks.filter((book) => !book.donatedDate)
+		const availableBooksWithDetails = availableBooks.filter((book) => book.hasDetails)
+		const indexOfLastBook = currentPage * booksPerPage
+		const indexOfFirstBook = indexOfLastBook - booksPerPage
+		const currentBooks = availableBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
+		return (
+			<Layout>
+				<SEO title="Our Books" />
+				<Title title="available" subtitle="books" />
+				{loading ? (
+					<Loader
+						style={{ margin: 'auto' }}
+						type="ThreeDots"
+						color="#00cfff"
+						height={100}
+						width={100}
 					/>
-				</>
-			)}
-		</Layout>
-	)
+				) : (
+					<>
+						<BookContainer
+							books={currentBooks}
+							handleOpenModal={this.handleOpenModal}
+						/>
+						{showModal ? (
+							<BookModal
+								show={showModal}
+								data={modalData}
+								handleCloseModal={this.handleCloseModal}
+							/>
+						) : null}
+						<Pagination
+							booksPerPage={booksPerPage}
+							totalBooks={availableBooksWithDetails.length}
+							currentPage={currentPage}
+							handlePagination={this.handlePagination}
+						/>
+					</>
+				)}
+			</Layout>
+		)
+	}
 }
