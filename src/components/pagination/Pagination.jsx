@@ -13,8 +13,11 @@ export default function Pagination({ booksPerPage, totalBooks, currentPage, hand
 				{pageNumbers.map((number) => (
 					<li key={number}>
 						<a
-							onClick={() => handlePagination(number)}
-							href="javascript:void()"
+							onClick={(e) => {
+								e.preventDefault()
+								handlePagination(number)
+							}}
+							href="#"
 							className={number === currentPage ? styles.active : null}
 						>
 							{number}

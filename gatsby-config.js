@@ -28,6 +28,12 @@ module.exports = {
 				policy: [{ userAgent: '*', allow: '/' }],
 			},
 		},
+		{
+			resolve: 'gatsby-source-rest-api',
+			options: {
+				endpoints: ['https://api-better-hand-books.herokuapp.com/api/books'],
+			},
+		},
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		`gatsby-plugin-sass`,
