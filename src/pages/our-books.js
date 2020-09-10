@@ -25,6 +25,8 @@ const fetchOurBooks = graphql`
 					pageCount
 					publisher
 					title
+					dateDonated
+					dateReceived
 				}
 			}
 		}
@@ -62,10 +64,11 @@ export default function OurBooks() {
 		fetchBookData()
 	}, [apiData.allRestApiApiBooks.edges])
 
-	const ourBooksWithDetails = ourBooks.filter((book) => book.hasDetails)
+	const availableBooks = ourBooks.filter((book) => !book.dateDonated)
+	const availableBooksWithDetails = availableBooks.filter((book) => book.hasDetails)
 	const indexOfLastBook = currentPage * booksPerPage
 	const indexOfFirstBook = indexOfLastBook - booksPerPage
-	const currentBooks = ourBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
+	const currentBooks = availableBooksWithDetails.slice(indexOfFirstBook, indexOfLastBook)
 	return (
 		<Layout>
 			<SEO title="Our Books" />
@@ -90,7 +93,7 @@ export default function OurBooks() {
 					) : null}
 					<Pagination
 						booksPerPage={booksPerPage}
-						totalBooks={ourBooksWithDetails.length}
+						totalBooks={availableBooksWithDetails.length}
 						currentPage={currentPage}
 						handlePagination={handlePagination}
 					/>
